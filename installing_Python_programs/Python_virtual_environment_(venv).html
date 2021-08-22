@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2022.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 18.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+    li.li3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    span.s1 {text-decoration: underline}
+    span.Apple-tab-span {white-space:pre}
+    ul.ul1 {list-style-type: square}
+  </style>
+</head>
+<body>
+<p class="p1">Виртуальное окружение Python (venv)</p>
+<p class="p2"><br></p>
+<p class="p3">Все сторонние пакеты устанавливаются менеджером PIP глобально. Проверить это можно просто командой pip show &lt;имя_пакета&gt;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>root@purplegate:~# pip3 show pytest</p>
+<p class="p3"><span class="Apple-tab-span">	</span>Name: pytest</p>
+<p class="p3"><span class="Apple-tab-span">	</span>Version: 5.3.2</p>
+<p class="p3"><span class="Apple-tab-span">	</span>Summary: pytest: simple powerful testing with Python</p>
+<p class="p3"><span class="Apple-tab-span">	</span>Home-page: https://docs.pytest.org/en/latest/</p>
+<p class="p3"><span class="Apple-tab-span">	</span>Author: Holger Krekel, Bruno Oliveira, Ronny Pfannschmidt, ...</p>
+<p class="p3"><span class="Apple-tab-span">	</span>License: MIT license</p>
+<p class="p3"><span class="Apple-tab-span">	</span>Location: /usr/local/lib/python3.8/site-packages</p>
+<p class="p3"><span class="Apple-tab-span">	</span>Requires: more-itertools, pluggy, py, wcwidth, attrs, packaging</p>
+<p class="p3"><span class="Apple-tab-span">	</span>Required-by:</p>
+<p class="p2"><br></p>
+<p class="p3">Location – путь до ваших глобальных пакетов.</p>
+<p class="p3">Допустим у нас есть два проекта: "Project A" и "Project B". Оба проекта зависят от библиотеки Simplejson. Проблема возникает, когда для "Project A" нужна версия Simplejson 3.0.0, а для проекта "Project B" – 3.17.0. Python не может различить версии в глобальном каталоге site-packages – в нем останется только та версия пакета, которая была установлена последней.</p>
+<p class="p3">Решение данной проблемы – создание виртуального окружения (virtual environment).</p>
+<p class="p3">Основная цель виртуального окружения Python – создание изолированной среды для python-проектов.</p>
+<p class="p3">Это означает, что каждый проект может иметь свои собственные зависимости, независимо от других проектов.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Настройка виртуального окружения</span></p>
+<p class="p3">Один из самых популярных инструментов для создания виртуального окружения – virtualenv. Однако в данной статье мы будем рассматривать более свежий инструмент venv.</p>
+<p class="p3">Устанавливать venv не нужно – он входит в стандартную библиотеку Python</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Создание</span></p>
+<p class="p3">Для создания виртуального окружения, перейдите в директорию своего проекта и выполните:</p>
+<p class="p3">python -m venv venv</p>
+<p class="p3">Флаг -m указывает Python-у запустить venv как исполняемый модуль. venv/ - название виртуального окружения (где будут храниться ваши библиотеки)</p>
+<p class="p3">В результате будет создан каталог venv/ содержащий копию интерпретатора Python, стандартную библиотеку и другие вспомогательные файлы.</p>
+<p class="p3">Новые пакеты будут устанавливаться в venv/lib/python3.x/site-packages/</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Активация</span></p>
+<p class="p3">Чтобы начать пользоваться виртуальным окружением, необходимо его активировать:</p>
+<p class="p3">venv\Scripts\activate.bat - для Windows;</p>
+<p class="p3">source venv/bin/activate - для Linux и MacOS:</p>
+<p class="p3">source выполняет bash-скрипт без запуска дополнительного bash-процесса.</p>
+<p class="p3">Проверить успешность активации можно по приглашению оболочки. Она будет выглядеть так:</p>
+<p class="p3">(venv) root@purplegate:/var/test#</p>
+<p class="p3">Также новый путь до библиотек можно увидеть выполнив команду:</p>
+<p class="p3">python -c "import site; print(site.getsitepackages())"</p>
+<p class="p3">Интересный факт: в виртуальном окружении вместо команды python3 и pip3, можно использовать python и pip</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Автоматическая активация</span></p>
+<p class="p3">В некоторых случаях, процесс активации виртуального окружения может показаться неудобным.</p>
+<p class="p3">На практике, для автоматической активации перед запуском скрипта, создают скрипт-обертку на bash</p>
+<p class="p3"><span class="Apple-tab-span">	</span>#!/usr/bin/env bash</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>source $BASEDIR/venv/bin/activate</p>
+<p class="p3"><span class="Apple-tab-span">	</span>python $BASEDIR/my_app.py</p>
+<p class="p3">Теперь можно установить права на исполнение и запустить нашу обертку:</p>
+<p class="p3"><span class="Apple-tab-span">	</span>chmod +x myapp/run.sh</p>
+<p class="p3"><span class="Apple-tab-span">	</span>./myapp/run.sh</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Деактивация</span></p>
+<p class="p3">Закончив работу в виртуальной среде, вы можете отключить ее, выполнив консольную команду:</p>
+<p class="p3">deactivate</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Альтернативы venv</span></p>
+<p class="p3">На данный момент существует несколько альтернатив для venv:</p>
+<ul class="ul1">
+  <li class="li3">pipenv - это pipfile, pip и virtualenv в одном флаконе;</li>
+  <li class="li3">pyenv - простой контроль версий Питона;</li>
+  <li class="li3">poetry - новый менеджер для управления зависимостями;</li>
+  <li class="li3">autoenv - среды на основе каталогов;</li>
+  <li class="li3">pew - инструмент для управления несколькими виртуальными средами, написанными на чистом Python;</li>
+  <li class="li3">rez - интегрированная система конфигурирования, сборки и развертывания пакетов для программного обеспечения.</li>
+</ul>
+<p class="p3">Стоит ли использовать виртуальное окружение в своей работе – однозначно да. Это мощный и удобный инструмент изоляции проектов друг от друга и от системы. С помощью виртуального окружения можно использовать даже разные версии Python!</p>
+<p class="p3">Однако рекомендуем присмотреться к более продвинутым вариантам, например к pipenv или poetry.</p>
+<p class="p3">Последнее изменение: Четверг, 11 Февраль 2021, 16:29</p>
+</body>
+</html>
